@@ -7,4 +7,4 @@ app_prof:
  - {tenant: "common", name: "ap_5", description: "default"}
  - {tenant: "common", name: "ap_6", description: "default"}
  - {tenant: "common", name: "ap_7", description: "default"}
-
+ - {tenant: "common", name: "ap_8", description: "default"}

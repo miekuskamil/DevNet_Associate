@@ -1,0 +1,18 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Add Bridge Domain
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/tn-{{ item.tenant }}/BD-{{ item.name }}.json
+   body: {"fvBD":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/BD-{{ item.name }}","name":"{{ item.name }}","descr":"{{ item.description }}","unicastRoute":"{{ item.unicast }}","rn":"BD-{{ item.name }}","status":"created"},"children":[{"fvRsCtx":{"attributes":{"tnFvCtxName":"{{ item.vrf }}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  loop: "{{ bd }}"
+
+

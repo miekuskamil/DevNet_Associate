@@ -1,0 +1,14 @@
+---
+- name: configure contract filter
+  import_tasks: implement.yml
+  when: change_state == "implement"
+- name: de-configure contract filter
+  import_tasks: backout.yml
+  when: change_state == "backout"
+- name: add entries to contract filter
+  import_tasks: entry_implement.yml
+  when: change_state == "entry_implement"
+- name: remove entries from contract filter
+  import_tasks: entry_backout.yml
+  when: change_state == "entry_backout"
+

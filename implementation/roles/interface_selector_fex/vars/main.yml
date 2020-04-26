@@ -1,0 +1,4 @@
+---
+fex_interface_selector:
+ - {fexIntProfile: "intproffex01a", name: "intselfex01a", port_description: "default", block: "4", from: "4", to: "4", policyGroup: "ipolgrp_access"} 
+ - {fexIntProfile: "intproffex01a", name: "intselfex01b", port_description: "default", block: "5", from: "5", to: "5", policyGroup: "ipolgrp_access"} 

@@ -1,0 +1,18 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Add AP
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/tn-{{ item.tenant }}/ap-{{ item.name }}.json
+   body: {"fvAp":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/ap-{{ item.name }}","name":"{{ item.name }}","descr":"{{ item.name }}","rn":"ap-{{ item.name }}","status":"created"},"children":[]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  loop: "{{ app_prof }}"
+
+

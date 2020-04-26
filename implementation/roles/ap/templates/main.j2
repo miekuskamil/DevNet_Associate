@@ -1,0 +1,8 @@
+---
+app_prof:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {tenant: "{{ list[0]|trim() }}", name: "{{ list[1]|trim() }}", description: "{{ list[2]|trim() }}"} 
+{%   endif %}
+{% endfor %}

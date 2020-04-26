@@ -1,0 +1,19 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: epg # deploy configuration for EPG 
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: epg # remove configuration for EPG
+      tags: stop
+      vars:
+        change_state: backout
+
+
+
+
+

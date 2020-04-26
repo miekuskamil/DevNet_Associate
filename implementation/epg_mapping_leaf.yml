@@ -1,0 +1,15 @@
+- hosts: all
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: epg_mapping_leaf # deploy Static Port mapping to EPGs - leaf
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: epg_mapping_leaf # remove Static Port mapping to EPGs - leaf
+      tags: stop
+      vars:
+        change_state: backout
+

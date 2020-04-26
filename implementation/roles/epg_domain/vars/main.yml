@@ -1,0 +1,4 @@
+---
+epg_domain:
+ - {tenant: "common", app_prof: "ap_1", epg: "epg_1", domain: "physdom_1", res: "immediate"} 
+ - {tenant: "common", app_prof: "ap_2", epg: "epg_2", domain: "physdom_2", res: "immediate"} 

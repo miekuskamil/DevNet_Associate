@@ -1,0 +1,8 @@
+---
+static_fex_ports:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {tenant: "{{ list[0]|trim() }}", app_prof: "{{ list[1]|trim() }}", epg: "{{ list[2]|trim() }}", vlan: "{{ list[3]|trim() }}", deploy: "{{ list[4]|trim() }}", pod_id: "{{ list[5]|trim() }}", node_id: "{{ list[6]|trim() }}", fex_id: "{{ list[7]|trim() }}", int_no: "{{ list[8]|trim() }}", mode: "{{ list[9]|trim() }}"} 
+{%   endif %}
+{% endfor %}

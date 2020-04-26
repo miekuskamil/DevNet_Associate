@@ -1,0 +1,17 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Delete Switch Profile for the Leaf Switches
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra.json
+   body: {"infraInfra":{"attributes":{"dn":"uni/infra","status":"modified"},"children":[{"infraNodeP":{"attributes":{"dn":"uni/infra/nprof-{{ item.name }}","status":"deleted"},"children":[]}}]}}
+   method: POST
+   validate_certs: False
+   body_format: json
+   return_content: yes
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ sw_profile }}"

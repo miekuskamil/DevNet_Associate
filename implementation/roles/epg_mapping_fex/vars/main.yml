@@ -1,0 +1,5 @@
+---
+static_fex_ports:
+ - {tenant: "common", app_prof: "ap_1", epg: "epg_1", vlan: "800", deploy: "immediate", pod_id: "1", node_id: "101", fex_id: "101", int_no: "1/4", mode: "native"} 
+ - {tenant: "common", app_prof: "ap_2", epg: "epg_2", vlan: "801", deploy: "immediate", pod_id: "1", node_id: "101", fex_id: "101", int_no: "1/5", mode: "native"} 
+ - {tenant: "common", app_prof: "ap_2", epg: "epg_3", vlan: "802", deploy: "immediate", pod_id: "1", node_id: "101", fex_id: "101", int_no: "1/6", mode: "native"} 

@@ -1,0 +1,19 @@
+---
+- name: configure contract
+  import_tasks: implement.yml
+  when: change_state == "implement"
+- name: remove contract
+  import_tasks: backout.yml
+  when: change_state == "backout"
+- name: add subject to contract
+  import_tasks: subject_implement.yml
+  when: change_state == "subject_implement"
+- name: remove subject from contract
+  import_tasks: subject_backout.yml
+  when: change_state == "subject_backout"
+- name: add filter to contract
+  import_tasks: filter_implement.yml
+  when: change_state == "filter_implement"
+- name: remove filter from contract
+  import_tasks: filter_backout.yml
+  when: change_state == "filter_backout"

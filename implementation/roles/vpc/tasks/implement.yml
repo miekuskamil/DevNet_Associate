@@ -1,0 +1,21 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Create vPC
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/fabric/protpol/expgep-{{ item.name }}.json
+   body: {"fabricExplicitGEp":{"attributes":{"dn":"uni/fabric/protpol/expgep-{{ item.name }}","name":"{{ item.name }}","id":"{{ item.id }}","rn":"expgep-{{ item.name }}","status":"created,modified"},"children":[{"fabricNodePEp":{"attributes":{"dn":"uni/fabric/protpol/expgep-{{ item.name }}/nodepep-{{ item.node_1 }}","id":"{{ item.node_1 }}","status":"created","rn":"nodepep-{{ item.node_1 }}"},"children":[]}},{"fabricNodePEp":{"attributes":{"dn":"uni/fabric/protpol/expgep-{{ item.name }}/nodepep-{{ item.node_2 }}","id":"{{ item.node_2 }}","status":"created","rn":"nodepep-{{ item.node_2 }}"},"children":[]}},{"fabricRsVpcInstPol":{"attributes":{"tnVpcInstPolName":"{{ item.domain }}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   validate_certs: False
+   body_format: json
+   return_content: yes
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ vpc }}"
+
+
+
+

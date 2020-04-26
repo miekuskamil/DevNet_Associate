@@ -1,0 +1,18 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Create FEX profile
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/fexprof-{{ item.fexIntProfile }}.json
+   body: {"infraFexP":{"attributes":{"dn":"uni/infra/fexprof-{{ item.fexIntProfile }}","name":"{{ item.fexIntProfile }}","rn":"fexprof-{{ item.fexIntProfile }}","status":"created,modified"},"children":[{"infraFexBndlGrp":{"attributes":{"dn":"uni/infra/fexprof-{{ item.fexIntProfile }}/fexbundle-{{ item.fexIntProfile }}","name":"{{ item.fexIntProfile }}","rn":"fexbundle-{{ item.fexIntProfile }}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ fex_profile }}"
+
+  

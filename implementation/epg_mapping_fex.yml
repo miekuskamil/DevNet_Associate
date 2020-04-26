@@ -1,0 +1,15 @@
+- hosts: all
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: epg_mapping_fex # deploy Static Port mapping to EPGs - FEX
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: epg_mapping_fex # remove Static Port mapping to EPGs - FEX
+      tags: stop
+      vars:
+        change_state: backout
+

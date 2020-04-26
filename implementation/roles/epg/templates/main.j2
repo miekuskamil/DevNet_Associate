@@ -1,0 +1,8 @@
+---
+epg:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {tenant: "{{ list[0]|trim() }}", app_prof: "{{ list[1]|trim() }}", name: "{{ list[2]|trim() }}", description: "{{ list[3]|trim() }}", bd: "{{ list[4]|trim() }}"} 
+{%   endif %}
+{% endfor %}

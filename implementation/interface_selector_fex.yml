@@ -1,0 +1,28 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: interface_selector_fex # deploy FEX interface selector
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: interface_selector_fex # remove FEX interface selector
+      tags: stop
+      vars:
+        change_state: backout
+
+    - role: interface_selector_fex # deploy FEX interface selector - add ports
+      tags: add_go
+      vars:
+        change_state: add_implement
+
+    - role: interface_selector_fex # remove FEX interface selector - add ports
+      tags: add_stop
+      vars:
+        change_state: add_backout
+
+
+
+

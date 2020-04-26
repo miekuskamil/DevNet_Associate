@@ -1,0 +1,8 @@
+---
+filter:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {tenant: "{{ list[0]|trim() }}", name: "{{ list[1]|trim() }}", description: "{{ list[2]|trim() }}", entry_id: "{{ list[3]|trim() }}", protocol: "{{ list[4]|trim() }}", from_port: "{{ list[5]|trim() }}", to_port: "{{ list[6]|trim() }}"} 
+{%   endif %}
+{% endfor %}

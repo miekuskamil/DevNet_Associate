@@ -1,0 +1,39 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: contract # deploy configuration for contract holder
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: contract # remove configuration for contract holder
+      tags: stop
+      vars:
+        change_state: backout
+
+    - role: contract # deploy configuration for contract subject holder
+      tags: subject_go
+      vars:
+        change_state: subject_implement
+    - role: contract # remove configuration for contract subject holder
+      tags: subject_stop
+      vars:
+        change_state: subject_backout
+
+    - role: contract # deploy configuration for contract filter entry
+      tags: filter_go
+      vars:
+        change_state: filter_implement
+
+    - role: contract # remove configuration for contract filter entry
+      tags: filter_stop
+      vars:
+        change_state: filter_backout
+
+
+
+
+
+

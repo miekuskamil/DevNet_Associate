@@ -1,0 +1,17 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Delete FEX Profile
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra.json
+   body: {"infraInfra":{"attributes":{"dn":"uni/infra","status":"modified"},"children":[{"infraFexP":{"attributes":{"dn":"uni/infra/fexprof-{{ item.fexIntProfile }}","status":"deleted"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ fex_profile }}"
+

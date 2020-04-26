@@ -1,0 +1,14 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: interface_to_switch_profile # Map the Leaf Profile to Interface Profile
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: interface_to_switch_profile # Un-map the Leaf Profile to Interface Profile  
+      tags: stop
+      vars:
+        change_state: backout

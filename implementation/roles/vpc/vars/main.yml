@@ -1,0 +1,4 @@
+---
+vpc:
+ - {pod_id: "1", name: "vpc_switch1-2_pod1", domain: "default", id: "10", node_1: "101", node_2: "102"} 
+ - {pod_id: "2", name: "vpc_switch1-2_pod2", domain: "default", id: "20", node_1: "103", node_2: "104"} 

@@ -1,0 +1,7 @@
+---
+- name: map interface selector to switch profile
+  import_tasks: implement.yml
+  when: change_state == "implement"
+- name: unmap interface selector from switch profile
+  import_tasks: backout.yml
+  when: change_state == "backout"

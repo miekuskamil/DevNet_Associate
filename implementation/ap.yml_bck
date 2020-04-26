@@ -1,0 +1,19 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+
+  roles:
+    - role: ap # deploy configuration for application profile
+      tags: go
+      vars:
+        change_state: implement
+    - role: ap # remove configuration for application profile
+      tags: stop
+      vars:
+        change_state: backout
+
+
+
+
+

@@ -1,0 +1,4 @@
+---
+contract_to_epg:
+ - {tenant: "common", app_prof: "ap_1", epg: "epg_1", method_lc: "rsprov", method_uc: "fvRsProv", contract: "test_contract"} 
+ - {tenant: "common", app_prof: "ap_2", epg: "epg_2", method_lc: "rscons", method_uc: "fvRsCons", contract: "test_contract_1"} 

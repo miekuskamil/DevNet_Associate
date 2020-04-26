@@ -1,0 +1,13 @@
+---
+- name: create fex interface selectors
+  import_tasks: implement.yml
+  when: change_state == "implement"
+- name: remove fex interface selectors
+  import_tasks: backout.yml
+  when: change_state == "backout"
+- name: add ports and description to interface selectors
+  import_tasks: add_implement.yml
+  when: change_state == "add_implement"
+- name: remove ports and descriptions from interface selectors
+  import_tasks: add_backout.yml
+  when: change_state == "add_backout"

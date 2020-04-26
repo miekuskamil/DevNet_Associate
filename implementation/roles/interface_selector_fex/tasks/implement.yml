@@ -1,0 +1,19 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Configure FEX Interface Selector - Access
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/fexprof-{{ item.fexIntProfile }}/hports-{{ item.name }}-typ-range.json
+   body: {"infraHPortS":{"attributes":{"dn":"uni/infra/fexprof-{{ item.fexIntProfile }}/hports-{{ item.name }}-typ-range","name":"{{ item.name }}","rn":"hports-{{ item.name }}-typ-range","status":"created,modified"},"children":[{"infraRsAccBaseGrp":{"attributes":{"tDn":"uni/infra/funcprof/accportgrp-{{ item.policyGroup}}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ fex_interface_selector }}"
+
+
+  

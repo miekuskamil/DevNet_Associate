@@ -1,0 +1,7 @@
+---
+- name: add subnet to epg
+  import_tasks: implement.yml
+  when: change_state == "implement"
+- name: remove subnet from epg
+  import_tasks: backout.yml
+  when: change_state == "backout"

@@ -1,0 +1,25 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: interface_selector # deploy configuration for interface selector
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: interface_selector # remove configuration for interface selector
+      tags: stop
+      vars:
+        change_state: backout
+
+    - role: interface_selector # deploy configuration for interface selector - access ports
+      tags: add_go
+      vars:
+        change_state: add_implement
+
+    - role: interface_selector # remove configuration for interface selector - access ports
+      tags: add_stop
+      vars:
+        change_state: add_backout
+

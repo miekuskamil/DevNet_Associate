@@ -1,0 +1,4 @@
+---
+map_int_to_sw_profile:
+ - {int_prof: "intprof01a", sw_prof: "swprof01a"} 
+ - {int_prof: "intprof01b", sw_prof: "swprof01b"} 

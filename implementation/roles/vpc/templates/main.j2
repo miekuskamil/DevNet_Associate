@@ -1,0 +1,8 @@
+---
+vpc:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {pod_id: "{{ list[0]|trim() }}", name: "{{ list[1]|trim() }}", domain: "{{ list[2]|trim() }}", id: "{{ list[3]|trim() }}", node_1: "{{ list[4]|trim() }}", node_2: "{{ list[5]|trim() }}"} 
+{%   endif %}
+{% endfor %}

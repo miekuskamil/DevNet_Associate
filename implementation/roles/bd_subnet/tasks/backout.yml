@@ -1,0 +1,18 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Delete subnet from Bridge Domain
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/tn-{{ item.tenant }}/BD-{{ item.bd_name }}.json
+   body: {"fvBD":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/BD-{{ item.bd_name }}","status":"modified"},"children":[{"fvSubnet":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/BD-{{ item.bd_name }}/subnet-[{{ item.subnet }}/{{ item.mask }}]","status":"deleted"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  loop: "{{ bd_subnet }}"
+
+

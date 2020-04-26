@@ -1,0 +1,10 @@
+---
+InterfaceSelector:
+ - {leafIntProfile: "intprof01a", name: "intsel01a", isel_description: "default", policyGroup_access: "ipolgrp_access", policyGroup_po: "", policyGroup_vpc: ""}
+ - {leafIntProfile: "intprof01a", name: "intsel01b", isel_description: "default", policyGroup_access: "", policyGroup_po: "ipolgrp_port_channel", policyGroup_vpc: ""}
+ - {leafIntProfile: "intprof01a", name: "intsel01c", isel_description: "default", policyGroup_access: "", policyGroup_po: "", policyGroup_vpc: "ipolgrp_vpc"}
+
+InterfaceSelector_port:
+ - {leafIntProfile: "intprof01a", name: "intsel01a", isel_description: "default", port_description: "default", block: "26", from: "26", to: "26"}
+ - {leafIntProfile: "intprof01a", name: "intsel01b", isel_description: "default", port_description: "default", block: "27", from: "27", to: "27"}
+ - {leafIntProfile: "intprof01a", name: "intsel01c", isel_description: "default", port_description: "default", block: "28", from: "28", to: "28"}

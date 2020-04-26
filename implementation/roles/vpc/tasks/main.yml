@@ -1,0 +1,7 @@
+---
+- name: create vpc
+  import_tasks: implement.yml
+  when: change_state == "implement"
+- name: remove vpc
+  import_tasks: backout.yml
+  when: change_state == "backout"

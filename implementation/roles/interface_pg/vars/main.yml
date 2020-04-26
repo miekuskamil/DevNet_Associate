@@ -1,0 +1,5 @@
+---
+pg:
+ - {name: "test_access", description: "test_access", aep: "default", link: "default", cdp: "default", lldp: "default", stp: "default", mcp: "default", po: "", LagT: ""}
+ - {name: "test_po", description: "test_po", aep: "default", link: "default", cdp: "default", lldp: "default", stp: "default", mcp: "default", po: "default", LagT: ""}
+ - {name: "test_vpc", description: "test_vpc", aep: "default", link: "default", cdp: "default", lldp: "default", stp: "default", mcp: "default", po: "default", LagT: "node"}

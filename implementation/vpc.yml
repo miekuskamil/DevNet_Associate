@@ -1,0 +1,14 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: vpc # implement configuration for vPC
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: vpc # rollback configuration for vPC
+      tags: stop
+      vars:
+        change_state: backout

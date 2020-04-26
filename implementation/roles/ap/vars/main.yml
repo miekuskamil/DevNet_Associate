@@ -1,0 +1,5 @@
+---
+app_prof:
+ - {tenant: "common", name: "ap_1", description: "default"} 
+ - {tenant: "common", name: "ap_2", description: "default"} 
+ - {tenant: "common", name: "ap_3", description: "default"} 

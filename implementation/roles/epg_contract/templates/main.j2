@@ -1,0 +1,8 @@
+---
+contract_to_epg:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {tenant: "{{ list[0]|trim() }}", app_prof: "{{ list[1]|trim() }}", epg: "{{ list[2]|trim() }}", method_lc: "{{ list[3]|trim() }}", method_uc: "{{ list[4]|trim() }}", contract: "{{ list[5]|trim() }}"} 
+{%   endif %}
+{% endfor %}

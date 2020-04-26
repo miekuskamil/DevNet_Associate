@@ -1,0 +1,17 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: interface_pg # deploy configuration for interface policy-group
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: interface_pg # remove configuration for interface policy-group
+      tags: stop
+      vars:
+        change_state: backout
+
+
+

@@ -1,0 +1,8 @@
+---
+contract:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {tenant: "{{ list[0]|trim() }}", c_name: "{{ list[1]|trim() }}", c_desc: "{{ list[2]|trim() }}", sub_name: "{{ list[3]|trim() }}", sub_desc: "{{ list[4]|trim() }}", filter: "{{ list[5]|trim() }}"} 
+{%   endif %}
+{% endfor %}

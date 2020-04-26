@@ -1,0 +1,16 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Access Interface Selectors to Interface Profile - Port and Description
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range/portblk-{{ item.block }}.json
+   body: {"infraPortBlk":{"attributes":{"dn":"uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range/portblk-{{ item.block }}","descr":"{{ item.port_description}}","fromPort":"{{ item.from }}","toPort":"{{ item.to }}","rn":"portblk-{{ item.block }}","status":"created,modified"},"children":[]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ InterfaceSelector_port }}"

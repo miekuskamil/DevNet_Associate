@@ -1,0 +1,8 @@
+---
+pg:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {name: "{{ list[0]|trim() }}", description: "{{ list[1]|trim() }}", aep: "{{ list[2]|trim() }}", link: "{{ list[3]|trim() }}", cdp: "{{ list[4]|trim() }}", lldp: "{{ list[5]|trim() }}", stp: "{{ list[6]|trim() }}", mcp: "{{ list[7]|trim() }}", po: "{{ list[8]|trim() }}", LagT: "{{ list[9]|trim() }}"}
+{%   endif %}
+{% endfor %}

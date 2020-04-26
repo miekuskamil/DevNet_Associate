@@ -8,5 +8,4 @@
     validate_certs: False
     headers:
       Content-Type: "application/json"
-  no_log: True
   register: login

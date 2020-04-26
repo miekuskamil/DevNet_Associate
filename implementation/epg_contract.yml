@@ -1,0 +1,19 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: epg_contract # deploy configuration for EPG Contract assignement
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: epg_contract # remove configuration for EPG Contract assignement
+      tags: stop
+      vars:
+        change_state: backout
+
+
+
+
+

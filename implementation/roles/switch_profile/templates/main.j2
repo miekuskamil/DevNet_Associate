@@ -1,0 +1,8 @@
+---
+sw_profile:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {name: "{{ list[0]|trim() }}", leaf_sel: "{{ list[1]|trim() }}", block: "{{ list[2]|trim() }}", pol_group: "{{ list[3]|trim() }}", node_id: "{{ list[4]|trim() }}"} 
+{%   endif %}
+{% endfor %}

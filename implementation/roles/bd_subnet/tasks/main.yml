@@ -1,0 +1,7 @@
+---
+- name: add subnet to beidge domain
+  import_tasks: implement.yml
+  when: change_state == "implement"
+- name: remove subnet from bridge domain
+  import_tasks: backout.yml
+  when: change_state == "backout"

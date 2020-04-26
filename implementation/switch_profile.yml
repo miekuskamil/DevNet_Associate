@@ -1,0 +1,14 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: switch_profile # Configure Switch Profile for the Leaf Switches 
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: switch_profile # Delete Switch Profile for the Leaf Switches 
+      tags: stop
+      vars:
+        change_state: backout

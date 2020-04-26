@@ -1,0 +1,23 @@
+------------------
+Template directory
+------------------
+
+- ap
+- bd_subnet
+- bd
+- contract_filter
+- contract
+- epg_contract
+- epg_domain
+- epg_mapping_fex
+- epg_mapping_leaf
+- epg_subnet
+- epg
+- interface_pg
+- interface_profile_fex
+- interface_profile
+- interface_selector_fex
+- interface_selector
+- interface_to_switch_profile
+- switch_profile
+- vpc

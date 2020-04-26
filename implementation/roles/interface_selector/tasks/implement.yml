@@ -1,0 +1,45 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Access Interface Selectors to Interface Profile - Access
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range.json
+   body: {"infraHPortS":{"attributes":{"dn":"uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range","name":"{{ item.name }}","rn":"hports-{{ item.name }}-typ-range","status":"created,modified"},"children":[{"infraRsAccBaseGrp":{"attributes":{"tDn":"uni/infra/funcprof/accportgrp-{{ item.policyGroup_access }}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ InterfaceSelector }}"
+  when: item.policyGroup_access
+
+
+- name: Access Interface Selectors to Interface Profile - Port-Channel
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range.json
+   body: {"infraHPortS":{"attributes":{"dn":"uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range","name":"{{ item.name }}","rn":"hports-{{ item.name }}-typ-range","status":"created,modified"},"children":[{"infraRsAccBaseGrp":{"attributes":{"tDn":"uni/infra/funcprof/accbundle-{{ item.policyGroup_po }}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ InterfaceSelector }}"
+  when: item.policyGroup_po
+
+
+- name: Access Interface Selectors to Interface Profile - vPC
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range.json
+   body: {"infraHPortS":{"attributes":{"dn":"uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range","name":"{{ item.name }}","rn":"hports-{{ item.name }}-typ-range","status":"created,modified"},"children":[{"infraRsAccBaseGrp":{"attributes":{"tDn":"uni/infra/funcprof/accbundle-{{ item.policyGroup_vpc }}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ InterfaceSelector }}"
+  when: item.policyGroup_vpc

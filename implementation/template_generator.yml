@@ -1,0 +1,135 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+
+
+  vars:
+    csvfile: "{{ lookup('file', 'template_input.csv') }}"
+
+
+
+  tasks:
+
+
+
+    - name: parse csv to yaml
+      template:
+        src: "./roles/{{ source }}/templates/main.j2"
+        dest: "./roles/{{ source }}/vars/main.yml"
+      run_once: true
+
+
+
+    - name: Block of {{ source }} tasks
+
+      block:
+
+
+       - name: "call {{ source }} variables" 
+         include_vars: ./roles/{{ source }}/vars/main.yml
+
+
+
+       - name: "{{ source }} syntax checker - single block"
+         assert:
+           that:
+             - item.tenant != ""
+             - item.tenant | regex_search('common')
+             - item.bd | regex_search('\/24')
+             - item.app_prof | regex_search('^ap\_.*')
+             - item.name | regex_search('^epg\_.*')
+             - item.bd | regex_search('^bd\_(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/24')
+           fail_msg: "FAIL"
+           success_msg: "PASS"
+           quiet: true
+         loop: "{{ epg }}"
+         loop_control:
+             pause: 1
+
+           
+
+       - name: "{{ source }} syntax checker - tenant existence"
+         assert:
+           that:
+             - item.tenant != ""
+           fail_msg: "Tenant not defined"
+           success_msg: "Tenant defined"
+           quiet: true
+         loop: "{{ epg }}"
+         loop_control:
+             pause: 1
+
+
+
+       - name: "{{ source }} syntax checker - tenant common existence"
+         assert:
+           that:
+             - item.tenant | regex_search('common')
+           fail_msg: "Tenant common not defined"
+           success_msg: "Tenant common defined"
+           quiet: true
+         loop: "{{ epg }}"
+         loop_control:
+             pause: 1
+
+
+
+       - name: "{{ source }} syntax checker - bd subnet /24 existence"
+         assert:
+           that:
+             - item.bd | regex_search('\/24')
+           fail_msg: "BD /24 not existient"
+           success_msg: "BD /24 existient"
+           quiet: true
+         loop: "{{ epg }}"
+         loop_control:
+             pause: 1
+
+
+
+       - name: "{{ source }} syntax checker - app profile name"
+         assert:
+           that:
+             - item.app_prof | regex_search('^ap\_.*')
+           fail_msg: "App profile syntax not correct"
+           success_msg: "App profile syntax correct"
+           quiet: true
+         loop: "{{ epg }}"
+         loop_control:
+             pause: 1
+
+
+
+       - name: "{{ source }} syntax checker - epg profile name"
+         assert:
+           that:
+             - item.name | regex_search('^epg\_.*')
+           fail_msg: "EPG profile syntax not correct"
+           success_msg: "EPG profile syntax correct"
+           quiet: true
+         loop: "{{ epg }}"
+         loop_control:
+             pause: 1
+
+
+       - name: "{{ source }} syntax checker - bd name"
+         assert:
+           that:
+             - item.bd | regex_search('^bd\_(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/24')
+           fail_msg: "BD profile syntax not correct"
+           success_msg: "BD profile syntax correct"
+           quiet: true
+         loop: "{{ epg }}"
+         loop_control:
+             pause: 1
+
+
+
+      ignore_errors: true
+#      no_log: True
+      when: source == "epg"
+
+

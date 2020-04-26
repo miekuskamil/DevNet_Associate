@@ -1,0 +1,16 @@
+---
+InterfaceSelector:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {leafIntProfile: "{{ list[0]|trim() }}", name: "{{ list[1]|trim() }}", isel_description: "{{ list[2]|trim() }}", policyGroup_access: "{{ list[7]|trim() }}", policyGroup_po: "{{ list[8]|trim() }}", policyGroup_vpc: "{{ list[9]|trim() }}"}
+{%   endif %}
+{% endfor %}
+
+InterfaceSelector_port:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {leafIntProfile: "{{ list[0]|trim() }}", name: "{{ list[1]|trim() }}", isel_description: "{{ list[2]|trim() }}", port_description: "{{ list[3]|trim() }}", block: "{{ list[4]|trim() }}", from: "{{ list[5]|trim() }}", to: "{{ list[6]|trim() }}"}
+{%   endif %}
+{% endfor %}

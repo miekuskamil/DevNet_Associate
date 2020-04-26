@@ -1,0 +1,8 @@
+---
+fex_interface_selector:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {fexIntProfile: "{{ list[0]|trim() }}", name: "{{ list[1]|trim() }}", port_description: "{{ list[2]|trim() }}", block: "{{ list[3]|trim() }}", from: "{{ list[4]|trim() }}", to: "{{ list[5]|trim() }}", policyGroup: "{{ list[6]|trim() }}"} 
+{%   endif %}
+{% endfor %}

@@ -1,0 +1,17 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: De-configure FEX Interface Selector - Access
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/fexprof-{{ item.fexIntProfile }}.json
+   body: {"infraFexP":{"attributes":{"dn":"uni/infra/fexprof-{{ item.fexIntProfile }}","status":"modified"},"children":[{"infraHPortS":{"attributes":{"dn":"uni/infra/fexprof-{{ item.fexIntProfile }}/hports-{{ item.name }}-typ-range","status":"deleted"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ fex_interface_selector }}"
+

@@ -1,0 +1,19 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: interface_profile_fex # deploy FEX interface profiles
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: interface_profile_fex # remove FEX interface profile
+      tags: stop
+      vars:
+        change_state: backout
+
+
+
+
+

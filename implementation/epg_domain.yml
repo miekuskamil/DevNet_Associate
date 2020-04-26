@@ -1,0 +1,18 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: epg_domain # deploy configuraiton for EPG physical domain
+      tags: go
+      vars:
+        change_state: implement
+    - role: epg_domain # remove configuraiton for EPG physical domain
+      tags: stop
+      vars:
+        change_state: backout
+
+
+
+
+

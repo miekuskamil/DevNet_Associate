@@ -1,0 +1,16 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Remove Ports from Interface Selector
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range.json
+   body: {"infraHPortS":{"attributes":{"dn":"uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range","status":"modified"},"children":[{"infraPortBlk":{"attributes":{"dn":"uni/infra/accportprof-{{ item.leafIntProfile }}/hports-{{ item.name }}-typ-range/portblk-{{ item.block }}","status":"deleted"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ InterfaceSelector_port }}"

@@ -1,0 +1,19 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: bd # deploy configuration for bridge domain
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: bd # remove configuration for bridge domain
+      tags: stop
+      vars:
+        change_state: backout
+
+
+
+
+

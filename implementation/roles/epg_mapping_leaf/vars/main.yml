@@ -1,0 +1,5 @@
+---
+static_ports:
+ - {tenant: "common", app_prof: "ap_1", epg: "epg_1", vlan: "800", deploy: "immediate", mode: "regular", pod_id: "1", access_leaf_id: "101", int_no: "1/20", vpc_name: "", vpc_leaf_id: "", port_channel_name: "", port_channel_leaf_id: ""} 
+ - {tenant: "common", app_prof: "ap_2", epg: "epg_2", vlan: "801", deploy: "immediate", mode: "regular", pod_id: "1", access_leaf_id: "", int_no: "", vpc_name: "test_vpc", vpc_leaf_id: "101-102", port_channel_name: "", port_channel_leaf_id: ""} 
+ - {tenant: "common", app_prof: "ap_2", epg: "epg_3", vlan: "802", deploy: "immediate", mode: "regular", pod_id: "1", access_leaf_id: "", int_no: "", vpc_name: "", vpc_leaf_id: "", port_channel_name: "test_po", port_channel_leaf_id: "101"} 

@@ -1,0 +1,47 @@
+---
+
+- name: login
+  include: login.yml
+
+- name: Configure Policy-Group - Access
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/funcprof/accportgrp-{{ item.name }}.json
+   body: {"infraAccPortGrp":{"attributes":{"dn":"uni/infra/funcprof/accportgrp-{{ item.name }}","name":"{{ item.name }}","descr":"{{ item.description }}","rn":"accportgrp-{{ item.name }}","status":"created"},"children":[{"infraRsHIfPol":{"attributes":{"tnFabricHIfPolName":"{{ item.link }}","status":"created,modified"},"children":[]}},{"infraRsAttEntP":{"attributes":{"tDn":"uni/infra/attentp-{{ item.aep }}","status":"created,modified"},"children":[]}},{"infraRsCdpIfPol":{"attributes":{"tnCdpIfPolName":"{{ item.cdp }}","status":"created,modified"},"children":[]}},{"infraRsLldpIfPol":{"attributes":{"tnLldpIfPolName":"{{ item.lldp }}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ pg }}"
+  when: not item.po and not item.LagT
+
+
+- name: Configure Policy-Group - Port-Channel
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/funcprof/accbundle-{{ item.name }}.json
+   body: {"infraAccBndlGrp":{"attributes":{"dn":"uni/infra/funcprof/accbundle-{{ item.name }}","name":"{{ item.name }}","descr":"{{ item.description }}","rn":"accbundle-{{ item.name }}","status":"created"},"children":[{"infraRsHIfPol":{"attributes":{"tnFabricHIfPolName":"{{ item.link }}","status":"created,modified"},"children":[]}},{"infraRsCdpIfPol":{"attributes":{"tnCdpIfPolName":"{{ item.cdp }}","status":"created,modified"},"children":[]}},{"infraRsMcpIfPol":{"attributes":{"tnMcpIfPolName":"{{ item.mcp }}","status":"created,modified"},"children":[]}},{"infraRsLldpIfPol":{"attributes":{"tnLldpIfPolName":"{{ item.lldp }}","status":"created,modified"},"children":[]}},{"infraRsStpIfPol":{"attributes":{"tnStpIfPolName":"{{ item.stp }}","status":"created,modified"},"children":[]}},{"infraRsLacpPol":{"attributes":{"tnLacpLagPolName":"{{ item.po }}","status":"created,modified"},"children":[]}},{"infraRsAttEntP":{"attributes":{"tDn":"uni/infra/attentp-{{ item.aep }}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ pg }}"
+  when: item.po and not item.LagT
+
+- name: Configure Policy-Group - vPC
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/funcprof/accbundle-{{ item.name }}.json
+   body: {"infraAccBndlGrp":{"attributes":{"dn":"uni/infra/funcprof/accbundle-{{ item.name }}","lagT":"node","name":"{{ item.name }}","descr":"{{ item.description }}","rn":"accbundle-{{ item.name }}","status":"created"},"children":[{"infraRsHIfPol":{"attributes":{"tnFabricHIfPolName":"{{ item.link }}","status":"created,modified"},"children":[]}},{"infraRsAttEntP":{"attributes":{"tDn":"uni/infra/attentp-{{ item.aep }}","status":"created,modified"},"children":[]}},{"infraRsLacpPol":{"attributes":{"tnLacpLagPolName":"{{ item.po }}","status":"created,modified"},"children":[]}},{"infraRsCdpIfPol":{"attributes":{"tnCdpIfPolName":"{{ item.cdp }}","status":"created,modified"},"children":[]}},{"infraRsMcpIfPol":{"attributes":{"tnMcpIfPolName":"{{ item.mcp }}","status":"created,modified"},"children":[]}},{"infraRsLldpIfPol":{"attributes":{"tnLldpIfPolName":"{{ item.lldp }}","status":"created,modified"},"children":[]}},{"infraRsStpIfPol":{"attributes":{"tnStpIfPolName":"{{ item.stp }}","status":"created,modified"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ pg }}"
+  when: item.po and item.LagT

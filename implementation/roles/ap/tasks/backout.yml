@@ -1,0 +1,17 @@
+---
+- name: Login
+  include: login.yml
+
+- name: Delete AP
+  uri:
+   url: https://{{ inventory_hostname }}//api/node/mo/uni/tn-{{ item.tenant }}.json
+   body: {"fvTenant":{"attributes":{"dn":"uni/tn-{{ item.tenant }}","status":"modified"},"children":[{"fvAp":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/ap-{{ item.name }}","status":"deleted"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  loop: "{{ app_prof }}"
+
+

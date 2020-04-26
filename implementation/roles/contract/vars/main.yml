@@ -1,0 +1,5 @@
+---
+contract:
+ - {tenant: "common", c_name: "test_contract", c_desc: "test_contract", sub_name: "test_subject", sub_desc: "test_subject", filter: "test_filter"} 
+ - {tenant: "common", c_name: "test_contract_1", c_desc: "test_contract_1", sub_name: "test_subject_1", sub_desc: "test_subject_1", filter: "test_filter_1"} 
+ - {tenant: "common", c_name: "test_contract_2", c_desc: "test_contract_2", sub_name: "test_subject_2", sub_desc: "test_subject_2", filter: "test_filter_2"} 

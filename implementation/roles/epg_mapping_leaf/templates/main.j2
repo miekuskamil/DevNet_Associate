@@ -1,0 +1,8 @@
+---
+static_ports:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {tenant: "{{ list[0]|trim() }}", app_prof: "{{ list[1]|trim() }}", epg: "{{ list[2]|trim() }}", vlan: "{{ list[3]|trim() }}", deploy: "{{ list[4]|trim() }}", mode: "{{ list[5]|trim() }}", pod_id: "{{ list[6]|trim() }}", access_leaf_id: "{{ list[7]|trim() }}", int_no: "{{ list[8]|trim() }}", vpc_name: "{{ list[9]|trim() }}", vpc_leaf_id: "{{ list[10]|trim() }}", port_channel_name: "{{ list[11]|trim() }}", port_channel_leaf_id: "{{ list[12]|trim() }}"} 
+{%   endif %}
+{% endfor %}

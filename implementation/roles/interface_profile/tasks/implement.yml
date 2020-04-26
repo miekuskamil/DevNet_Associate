@@ -1,0 +1,17 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Create Interface Profile for the Leaf Switches  
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/accportprof-{{ item.name }}.json
+   body: {"infraAccPortP":{"attributes":{"dn":"uni/infra/accportprof-{{ item.name }}","name":"{{ item.name }}","rn":"accportprof-{{ item.name }}","status":"created,modified"},"children":[]}}
+   method: POST
+   validate_certs: False
+   body_format: json
+   return_content: yes
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ int_profile }}"

@@ -1,0 +1,8 @@
+---
+int_profile:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index >= 1 %}
+{%     set list = item.split("\t") %}
+ - {name: "{{ list[0]|trim() }}"} 
+{%   endif %}
+{% endfor %}

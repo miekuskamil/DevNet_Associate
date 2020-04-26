@@ -1,0 +1,5 @@
+---
+bd_subnet:
+ - {tenant: "common", bd_name: "bd_192.168.1.0/24", subnet: "192.168.1.1", mask: "/24"} 
+ - {tenant: "common", bd_name: "bd_192.168.2.0/24", subnet: "192.168.2.1", mask: "/24"} 
+ - {tenant: "common", bd_name: "bd_192.168.3.0/24", subnet: "192.168.3.1", mask: "/24"} 

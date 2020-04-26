@@ -1,0 +1,48 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: De-configure Policy-Group - Access
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/funcprof.json
+   body: {"infraFuncP":{"attributes":{"dn":"uni/infra/funcprof","status":"modified"},"children":[{"infraAccPortGrp":{"attributes":{"dn":"uni/infra/funcprof/accportgrp-{{ item.name }}","status":"deleted"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ pg }}"
+  when: not item.po and not item.LagT
+
+
+- name: De-configure Policy-Group - Port-Channel
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/funcprof.json
+   body: {"infraFuncP":{"attributes":{"dn":"uni/infra/funcprof","status":"modified"},"children":[{"infraAccBndlGrp":{"attributes":{"dn":"uni/infra/funcprof/accbundle-{{ item.name }}","status":"deleted"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ pg }}"
+  when: item.po and not item.LagT
+
+
+- name: De-configure Policy-Group - vPC
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/funcprof.json
+   body: {"infraFuncP":{"attributes":{"dn":"uni/infra/funcprof","status":"modified"},"children":[{"infraAccBndlGrp":{"attributes":{"dn":"uni/infra/funcprof/accbundle-{{ item.name }}","status":"deleted"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ pg }}"
+  when: item.po and item.LagT

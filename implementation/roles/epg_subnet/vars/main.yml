@@ -1,0 +1,4 @@
+---
+epg_subnet:
+ - {tenant: "common", app_prof: "ap_1", epg: "epg_1", subnet: "192.168.5.1", mask: "/24"} 
+ - {tenant: "common", app_prof: "ap_2", epg: "epg_2", subnet: "192.168.6.1", mask: "/24"} 

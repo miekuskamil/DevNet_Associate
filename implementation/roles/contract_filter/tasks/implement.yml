@@ -1,0 +1,18 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Create Contract Filter
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/tn-{{ item.tenant }}/flt-{{ item.name }}.json
+   body: {"vzFilter":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/flt-{{ item.name }}","name":"{{ item.name }}","descr":"{{ item.description }}","rn":"flt-{{ item.name }}","status":"created,modified"}}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  loop: "{{ filter }}"
+
+

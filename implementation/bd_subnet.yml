@@ -1,0 +1,19 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: bd_subnet # deploy configuration for bridge domain subnet
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: bd_subnet # remove configuration for bridge domain subnet
+      tags: stop
+      vars:
+        change_state: backout
+
+
+
+
+

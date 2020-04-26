@@ -1,0 +1,46 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Un-map interface to EPG - access
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/tn-{{ item.tenant }}/ap-{{ item.app_prof }}/epg-{{ item.epg }}/rspathAtt-[topology/pod-{{ item.pod_id }}/paths-{{ item.access_id }}/pathep-[{{ item.int_no }}]].json
+   body: {"fvRsPathAtt":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/ap-{{ item.app_prof }}/epg-{{ item.epg }}/rspathAtt-[topology/pod-{{ item.pod_id }}/paths-{{ item.access_leaf_id }}/pathep-[{{ item.int_no }}]]","status":"deleted"},"children":[]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ static_ports }}"
+  when: item.access_id and item.int_no
+
+
+- name: Un-map interface to EPG - Port-Channel
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/tn-{{ item.tenant }}/ap-{{ item.app_prof }}/epg-{{ item.epg }}/rspathAtt-[topology/pod-{{ item.pod_id }}/paths-{{ item.port_channel_leaf_id }}/pathep-[{{ item.port_channel_name }}]].json
+   body: {"fvRsPathAtt":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/ap-{{ item.app_prof }}/epg-{{ item.epg }}/rspathAtt-[topology/pod-{{ item.pod_id }}/paths-{{ item.port_channel_leaf_id}}/pathep-[{{ item.port_channel_name }}]]","status":"deleted"},"children":[]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ static_ports }}"
+  when: item.port_channel_name and item.port_channel_leaf_id
+
+
+- name: Un-map interface to EPG - vPC
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/tn-{{ item.tenant }}/ap-{{ item.app_prof }}/epg-{{ item.epg }}/rspathAtt-[topology/pod-{{ item.pod_id }}/protpaths-{{ item.vpc_leaf_id }}/pathep-[{{ item.vpc_name }}]].json
+   body: {"fvRsPathAtt":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/ap-{{ item.app_prof }}/epg-{{ item.epg }}/rspathAtt-[topology/pod-{{ item.pod_id }}/protpaths-{{ item.vpc_leaf_id }}/pathep-[{{ item.vpc_name }}]]","status":"deleted"},"children":[]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{login.set_cookie}}"
+  loop: "{{ static_ports }}"
+  when: item.vpc_name and item.vpc_leaf_id
+

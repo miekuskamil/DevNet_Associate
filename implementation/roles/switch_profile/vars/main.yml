@@ -1,0 +1,4 @@
+---
+sw_profile:
+ - {name: "swprd01a", leaf_sel: "default", block: "101", pol_group: "default", node_id: "101"} 
+ - {name: "swprd01b", leaf_sel: "default", block: "102", pol_group: "default", node_id: "102"} 

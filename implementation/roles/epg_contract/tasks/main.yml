@@ -1,0 +1,7 @@
+---
+- name: map contract to epg
+  import_tasks: implement.yml
+  when: change_state == "implement"
+- name: unmap contract from epg
+  import_tasks: backout.yml
+  when: change_state == "backout"

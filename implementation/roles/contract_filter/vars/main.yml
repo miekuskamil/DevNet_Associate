@@ -1,0 +1,5 @@
+---
+filter:
+ - {tenant: "common", name: "test_filter", description: "test_filter", entry_id: "1", protocol: "tcp", from_port: "22", to_port: "22"} 
+ - {tenant: "common", name: "test_filter", description: "test_filter", entry_id: "2", protocol: "udp", from_port: "23", to_port: "23"} 
+ - {tenant: "common", name: "test_filter_1", description: "test_filter_1", entry_id: "1", protocol: "tcp", from_port: "25", to_port: "25"} 

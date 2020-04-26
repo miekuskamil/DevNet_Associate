@@ -1,0 +1,5 @@
+---
+epg:
+ - {tenant: "common", app_prof: "ap_1", name: "epg_1", description: "default", bd: "bd_192.168.1.255/24"} 
+ - {tenant: "commons", app_prof: "aps_2", name: "epg_2", description: "default", bd: "b_192.168.2.0/24"} 
+ - {tenant: "", app_prof: "ap_3", name: "epg_3", description: "default", bd: "bd_192.168.3.0/24"} 

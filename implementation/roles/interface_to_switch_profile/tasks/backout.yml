@@ -1,0 +1,17 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: De-map the Leaf Profile to Interface Profile 
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/infra/nprof-{{ item.sw_prof }}.json
+   body: {"infraNodeP":{"attributes":{"dn":"uni/infra/nprof-{{ item.sw_prof }}","status":"modified"},"children":[{"infraRsAccPortP":{"attributes":{"dn":"uni/infra/nprof-{{ item.sw_prof }}/rsaccPortP-[uni/infra/accportprof-{{ item.int_prof}}]","status":"deleted"},"children":[]}}]}}
+   method: POST
+   validate_certs: False
+   body_format: json
+   return_content: yes
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  ignore_errors: yes
+  loop: "{{ map_int_to_sw_profile }}"

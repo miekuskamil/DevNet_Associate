@@ -1,0 +1,18 @@
+---
+
+- name: Login
+  include: login.yml
+
+- name: Delete Contract Subject
+  uri:
+   url: https://{{ inventory_hostname }}/api/node/mo/uni/tn-{{ item.tenant }}/brc-{{ item.c_name }}.json
+   body: {"vzBrCP":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/brc-{{ item.c_name }}","status":"modified"},"children":[{"vzSubj":{"attributes":{"dn":"uni/tn-{{ item.tenant }}/brc-{{ item.c_name }}/subj-{{ item.sub_name }}","status":"deleted"},"children":[]}}]}}
+   method: POST
+   body_format: json
+   return_content: yes
+   validate_certs: False
+   headers:
+      Cookie: "{{ login.set_cookie }}"
+  loop: "{{ contract }}"
+
+

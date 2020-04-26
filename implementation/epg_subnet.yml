@@ -1,0 +1,19 @@
+- hosts: all 
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: epg_subnet # deploy configuration for EPG subnet
+      tags: go
+      vars:
+        change_state: implement
+
+    - role: epg_subnet # remove configuration for EPG subnet
+      tags: stop
+      vars:
+        change_state: backout
+
+
+
+
+

@@ -23,7 +23,7 @@ def test_some_primes():
 
 
 def test_ap_prof():
-    with open('../implementation/roles/ap/vars/main.yml') as f:
+    with open('implementation/roles/ap/vars/main.yml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
         for k, v in data.items():
             pprint.pprint(list(v))
